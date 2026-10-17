@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 760" width="1300" height="760">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <polygon points="0,0 10,5 0,10" fill="#57606a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1300" height="760" fill="#ffffff"/>
+  <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" fill="#1f2328">
+
+    <text x="20" y="42" font-size="26" font-weight="bold">What TestGPUWorkloadAttribution does on the A10</text>
+    <text x="20" y="72" font-size="17" fill="#57606a">With the e2e config (interval 3s, staleness 10s) Kepler refreshes about every 12 s, so each step waits for a fresh reading</text>
+
+    <!-- legend -->
+    <line x1="880" y1="106" x2="920" y2="106" stroke="#1f6feb" stroke-width="3"/>
+    <text x="928" y="112" font-size="16" fill="#57606a">GPU power (nvidia-smi)</text>
+    <circle cx="1112" cy="106" r="7" fill="#bf8700"/>
+    <text x="1126" y="112" font-size="16" fill="#57606a">Kepler refresh</text>
+
+    <!-- axes: x = 110 + t * 18.83 (t in s, 0..60), y = 360 - W * 1.353 (W in watts) -->
+    <line x1="110" y1="360" x2="1240" y2="360" stroke="#8c959f" stroke-width="1.5"/>
+    <line x1="110" y1="130" x2="110" y2="360" stroke="#8c959f" stroke-width="1.5"/>
+    <g font-size="15" fill="#57606a">
+      <text x="100" y="365" text-anchor="end">0 W</text>
+      <text x="100" y="297" text-anchor="end">50 W</text>
+      <text x="100" y="230" text-anchor="end">100 W</text>
+      <text x="100" y="162" text-anchor="end">150 W</text>
+      <text x="110" y="384" text-anchor="middle">0</text>
+      <text x="298" y="384" text-anchor="middle">10</text>
+      <text x="487" y="384" text-anchor="middle">20</text>
+      <text x="675" y="384" text-anchor="middle">30</text>
+      <text x="863" y="384" text-anchor="middle">40</text>
+      <text x="1052" y="384" text-anchor="middle">50</text>
+      <text x="1240" y="384" text-anchor="middle">60 s</text>
+    </g>
+    <text x="675" y="410" font-size="15" fill="#57606a" text-anchor="middle">seconds since Kepler started (schematic, power values from the A10 run)</text>
+
+    <!-- Kepler refreshes every ~12 s -->
+    <g stroke="#bf8700" stroke-width="1.5" stroke-dasharray="5,5">
+      <line x1="213.6" y1="130" x2="213.6" y2="360"/>
+      <line x1="439.5" y1="130" x2="439.5" y2="360"/>
+      <line x1="665.5" y1="130" x2="665.5" y2="360"/>
+      <line x1="891.4" y1="130" x2="891.4" y2="360"/>
+      <line x1="1117.4" y1="130" x2="1117.4" y2="360"/>
+    </g>
+
+    <!-- GPU power: idle, the load ramps up, steady -->
+    <polyline points="110,345.8 599.6,345.8 618.4,304.5 637.2,288.3 665.5,180.1 693.7,159.1 1239.8,158.4" fill="none" stroke="#1f6feb" stroke-width="3"/>
+    <line x1="599.6" y1="330" x2="599.6" y2="360" stroke="#1f2328" stroke-width="1.5"/>
+    <text x="590" y="326" font-size="15" text-anchor="end">load starts</text>
+
+    <!-- what Kepler reported at each refresh -->
+    <circle cx="213.6" cy="345.9" r="7" fill="#bf8700"/>
+    <circle cx="439.5" cy="345.9" r="7" fill="#bf8700"/>
+    <circle cx="665.5" cy="180.0" r="7" fill="#bf8700"/>
+    <circle cx="891.4" cy="158.4" r="7" fill="#bf8700"/>
+    <circle cx="1117.4" cy="158.4" r="7" fill="#bf8700"/>
+
+    <text x="226" y="300" font-size="16" fill="#1a7f37">matches nvidia-smi:</text>
+    <text x="226" y="320" font-size="16" fill="#1a7f37">idle baseline 10.4 W</text>
+
+    <text x="676" y="222" font-size="16" fill="#cf222e">mid-ramp: Kepler 133 W,</text>
+    <text x="676" y="242" font-size="16" fill="#cf222e">nvidia-smi 148.5 W,</text>
+    <text x="676" y="262" font-size="16" fill="#cf222e">so the test waits</text>
+
+    <text x="902" y="196" font-size="16" fill="#1a7f37">steady: ~149 W on both,</text>
+    <text x="902" y="216" font-size="16" fill="#1a7f37">the checks run here</text>
+
+    <!-- steps -->
+    <rect x="20" y="460" width="292" height="230" rx="10" fill="#eaf2fb" stroke="#4a78b5" stroke-width="2"/>
+    <text x="40" y="498" font-size="21" font-weight="bold">1  Settle at idle</text>
+    <text x="40" y="532" font-size="17">wait until Kepler and</text>
+    <text x="40" y="556" font-size="17">nvidia-smi agree on</text>
+    <text x="40" y="580" font-size="17">3 polls in a row</text>
+    <text x="40" y="620" font-size="17" fill="#57606a">so the idle baseline is</text>
+    <text x="40" y="644" font-size="17" fill="#57606a">the GPU's real idle</text>
+
+    <rect x="342" y="460" width="292" height="230" rx="10" fill="#fff5e8" stroke="#d9822b" stroke-width="2"/>
+    <text x="362" y="498" font-size="21" font-weight="bold">2  Start the load</text>
+    <text x="362" y="532" font-size="17">dcgmproftester from</text>
+    <text x="362" y="556" font-size="17">NVIDIA's DCGM image,</text>
+    <text x="362" y="580" font-size="17">built for the driver's CUDA</text>
+    <text x="362" y="620" font-size="17" fill="#57606a">its host PID comes from</text>
+    <text x="362" y="644" font-size="17" fill="#57606a">nvidia-smi</text>
+
+    <rect x="664" y="460" width="292" height="230" rx="10" fill="#fff5e8" stroke="#d9822b" stroke-width="2"/>
+    <text x="684" y="498" font-size="21" font-weight="bold">3  Wait for steady load</text>
+    <text x="684" y="532" font-size="17">a Kepler refresh where</text>
+    <text x="684" y="556" font-size="17">that PID has power and</text>
+    <text x="684" y="580" font-size="17">the total matches nvidia-smi</text>
+    <text x="684" y="620" font-size="17" fill="#57606a">a refresh caught mid-ramp</text>
+    <text x="684" y="644" font-size="17" fill="#57606a">does not count</text>
+
+    <rect x="986" y="460" width="292" height="230" rx="10" fill="#eef7ee" stroke="#3f8f4a" stroke-width="2"/>
+    <text x="1006" y="498" font-size="21" font-weight="bold">4  Check attribution</text>
+    <text x="1006" y="532" font-size="17">running processes = active</text>
+    <text x="1006" y="556" font-size="17">the PID gets at least 90%</text>
+    <text x="1006" y="580" font-size="17">it sits in the load's container</text>
+    <text x="1006" y="604" font-size="17">container = its process</text>
+
+    <line x1="312" y1="575" x2="340" y2="575" stroke="#57606a" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <line x1="634" y1="575" x2="662" y2="575" stroke="#57606a" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <line x1="956" y1="575" x2="984" y2="575" stroke="#57606a" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+    <text x="20" y="730" font-size="15" fill="#57606a">Steps 1 to 3 time out after 90 s each, so a GPU that never settles or a load that never starts fails with a clear message.</text>
+  </g>
+</svg>
