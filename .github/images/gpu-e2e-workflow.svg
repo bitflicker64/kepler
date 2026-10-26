@@ -18,8 +18,8 @@
     <text x="140" y="222" font-size="17" fill="#57606a" text-anchor="middle">inputs</text>
     <text x="140" y="250" font-size="18" text-anchor="middle">PR number</text>
     <text x="140" y="276" font-size="18" text-anchor="middle">reviewed commit</text>
-    <text x="140" y="302" font-size="16" fill="#57606a" text-anchor="middle">(optional; empty tests the</text>
-    <text x="140" y="324" font-size="16" fill="#57606a" text-anchor="middle">latest commit, not pinned)</text>
+    <text x="140" y="302" font-size="16" fill="#57606a" text-anchor="middle">(required with a PR number;</text>
+    <text x="140" y="324" font-size="16" fill="#57606a" text-anchor="middle">the run stops if it moved)</text>
 
     <rect x="20" y="440" width="240" height="160" rx="10" fill="#eaf2fb" stroke="#4a78b5" stroke-width="2"/>
     <text x="140" y="478" font-size="22" font-weight="bold" text-anchor="middle">Weekly run</text>
@@ -32,8 +32,8 @@
     <text x="485" y="153" font-size="22" font-weight="bold" text-anchor="middle">Quick check</text>
     <text x="485" y="181" font-size="17" fill="#57606a" text-anchor="middle">ubuntu-latest, no GPU, seconds</text>
     <text x="360" y="222" font-size="18">&#8226; PR exists and is open</text>
-    <text x="360" y="256" font-size="18">&#8226; if a commit is given, the</text>
-    <text x="378" y="280" font-size="18">PR head still matches it</text>
+    <text x="360" y="256" font-size="18">&#8226; the PR head still matches</text>
+    <text x="378" y="280" font-size="18">the reviewed commit</text>
     <text x="360" y="314" font-size="18">&#8226; mark the PR:</text>
     <circle cx="387" cy="335" r="7" fill="#d4a72c"/>
     <text x="400" y="341" font-size="18">GPU e2e: running</text>
@@ -82,7 +82,7 @@
     <!-- arrows between columns -->
     <line x1="260" y1="225" x2="338" y2="225" stroke="#57606a" stroke-width="2.5" marker-end="url(#arrow)"/>
     <text x="300" y="195" font-size="15" fill="#57606a" text-anchor="middle">PR #</text>
-    <text x="300" y="213" font-size="15" fill="#57606a" text-anchor="middle">(+ commit)</text>
+    <text x="300" y="213" font-size="15" fill="#57606a" text-anchor="middle">+ commit</text>
 
     <line x1="630" y1="225" x2="708" y2="225" stroke="#57606a" stroke-width="2.5" marker-end="url(#arrow)"/>
     <text x="670" y="195" font-size="15" fill="#57606a" text-anchor="middle">exact</text>
